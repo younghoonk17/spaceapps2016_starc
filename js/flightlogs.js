@@ -63,9 +63,9 @@ function onRowClick(){
 	var id = this.getAttribute('id');
 	var $content = $("#" + id + "-summary");
 	var isHidden = $content.is(":visible") == false
-	$(".summaryDiv").hide();
+	$(".summaryDiv").slideUp();
 	if (isHidden){
-		$content.show();
+		$content.slideDown();
 	}
 	
 	getFlightLogByID(id);
