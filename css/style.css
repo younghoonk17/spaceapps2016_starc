@@ -12,7 +12,7 @@
 
 /* Basic */
 	body {
-		background: #FAEBD7;
+		background: #EAC957;
 		/*background-image: url('../images/Old-paper.jpg');*/
 	}
 
@@ -33,7 +33,7 @@
 		color: #666;
 		font-family: "Raleway", Arial, Helvetica, sans-serif;
 		/*font: 'Italianno', Arial, Helvetica, Sans-serif;*/
-		font-size: 13pt;
+		font-size: 10pt;
 		font-weight: 400;
 		line-height: 2em;
 	}
@@ -1063,7 +1063,7 @@
 	#banner {
 		padding: 16em 0 23em 0;
 		/*background-attachment: fixed;*/
-		background:  url("images/overlay.png") no-repeat;
+		/*background:  url("images/overlay.png") no-repeat;*/
 		background-position: center;
 		background-size: cover;
 		line-height: 1.75;
@@ -1079,7 +1079,7 @@
 	#banner2 {
 		padding: 16em 0 13em 0;
 		/*background-attachment: fixed;*/
-		background-image: url("images/overlay.png")
+		/*background-image: url("images/overlay.png")*/
 		background-position: center;
 		background-size: cover;
 		line-height: 1.75;
@@ -1091,7 +1091,7 @@
 	#banner3 {
 		padding: 16em 0 13em 0;
 		/*background-attachment: fixed;*/
-		background-image: url("images/overlay.png");
+		/*background-image: url("images/overlay.png");*/
 		background-repeat: no-repeat;
 		background-position: center top;
 		background-size: cover;
@@ -1210,6 +1210,20 @@
 	body.is-touch .wrapper.style3 {
 		background-attachment: scroll;
 	}
+
+/* Yh code */
+	.container1{
+		height: 5%;
+	}
+	.container2{
+		height: 85%;
+		
+	}
+	.container3{
+		height: 10%;
+	}
+
+
 
 /* Footer */
 
