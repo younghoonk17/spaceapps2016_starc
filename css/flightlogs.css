@@ -1,0 +1,61 @@
+.logContainer {
+	 padding-top: 50px;
+	 width: 100%;
+	 font-family: "Raleway", Arial, Helvetica, sans-serif;
+ }
+
+ .rowItem {
+	background-color: rgba(144, 144, 144, 0.65);
+	color: white;
+	position: relative;
+	height: 60px;
+	margin: 5px;
+	border-radius: 2px;
+ }
+ .pilotsName{
+	position: absolute;
+	font-weight: bold;
+	top: 0;
+	left: 5px;
+ }
+ .flightStartTime{
+	position: absolute;
+	right: 5px;
+	top: 0;
+ }
+ .droneModel{
+	position: absolute;
+	font-style: italic;
+	bottom: 0;
+	left: 5px;
+ }
+ .flightLocation{
+	position: absolute;
+	bottom: 0;
+	right: 5px;
+ }
+ #tblflights {
+	max-height: 570px;
+    overflow: hidden;
+    overflow-y: scroll;
+ 
+}
+::-webkit-scrollbar { 
+    display: none;
+}
+.summaryDiv{
+	height:230px;
+	display: none;
+	background-color:white;
+	margin: 5px;
+	border-radius: 2px;
+}
+.summaryDiv tr{
+
+}
+.summaryDiv td{
+	padding-bottom: 0;
+	padding-top: 0;
+}
+ 
+ 
