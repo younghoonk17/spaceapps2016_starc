@@ -1,12 +1,780 @@
-<script type="text/javascript">
-		var password = "0304";
-		var x = prompt("Please enter in the PIN ","");
-		if (x == password) {
-		  	alert("Come on in!");
-		  	window.location = "home.html";
-		}
-		else {
-			//alert("Sorry, incorrect pin.")
-		  	window.location = "bad.html";
-		}
-</script>
+<!DOCTYPE HTML>
+<!--
+	Spatial by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<!--Phone Size: 360x640-->
+<!--Lat Long fields populated, search button to load to specific location-->
+<html>
+	<head>
+		<title>Map</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style1.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+				<h1><strong>App Name</strong></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="info.html">Zones</a></li>
+						<li><a href="weather.html">Weather</a></li>
+						<li><a href="social.html">Social</a></li>
+						<li><a href="group.html">Group</a></li>
+						<li><a href="flightlogs.html">Flight Logs</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper">
+				<form action="searchMap" style="display: inline;">
+					<fieldset style="width:95%; padding: 5px; padding-left:20px; ">
+
+						<input type="text" id="searchField" name="mapsearch" style="font-size: 7pt; width: 59% !important; vertical-align:text-top; border-width:3px; border-color:black;position:absolute; TOP:70px; LEFT:10px">
+
+					  	<input type="button" value="Track" id="track" style="width: 15%; float: right; font-size: 7pt; opacity: 0.7; background-color:Transparent; border:solid; border-color:black; border-width: 3px; color:black;">
+					  	
+
+					  	<input type="button" value="Search" id="search" style="width: 15%; float: right; font-size: 7pt; opacity: 0.7;background-color:Transparent; border:solid; border-color:black; border-width: 3px; color:black">
+
+					</fieldset>
+				  	
+
+				</form>
+				<div class="container" style="align: centre;">
+					<style>
+				      #map {
+						margin: auto;
+						width: 100%;
+						height: 450px;
+						/*border-radius: 50%;*/
+					    margin: 0px;
+					    padding: 0px;
+				      }
+				    </style>
+					<link rel="stylesheet"
+					      src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+				
+				    <script>
+
+				    	//manual input of aerodome zones in NZ:
+			    		var aerodomelist = {
+			    			alexandra: {
+								centre: {lat: -45.21166667, lng: 169.37333333},
+							},
+							ardmore: {
+								centre: {lat: -37.02972222, lng: 174.97333333},
+							},
+							asbbankcentre: {
+								centre: {lat: -36.85, lng: 174.7625},
+							},
+							ashburton: {
+								centre: {lat: -43.90333333, lng: 171.79666667},
+							},
+							aucklandharbour: {
+								centre: {lat: -36.83390556, lng: 174.76348611},
+							},
+							aucklandhospital: {
+								centre: {lat: -36.85916667, lng: 174.76888889},
+							},
+							aucklandintl: {
+								centre: {lat: -37.00805556, lng: 174.79166667},
+							},
+							avalon: {
+								centre: {lat: -41.18666667, lng: 174.94388889},
+							},
+							balclutha: {
+								centre: {lat: -46.24333333, lng: 169.75},
+							},
+							bayofislandshospital: {
+								centre: {lat: -35.38583333, lng: 174.07027778},
+							},
+							burwoodhospital: {
+								centre: {lat: -43.47972222, lng: 172.68694444},
+							},
+							centennialpark: {
+								centre: {lat: -38.66527778, lng: 176.13472222},
+							},
+							centrebush: {
+								centre: {lat: -46.04, lng: 168.31166667},
+							},
+							chathamislands: {
+								centre: {lat: -43.81, lng: -176.45722222},
+							},
+							christchurchhospital: {
+								centre: {lat: -43.53666667, lng: 172.62222222},
+							},
+							christchurchintl: {
+								centre: {lat: -43.48944444, lng: 172.53444444},
+							},
+							coromandel: {
+								centre: {lat: -36.79166667, lng: 175.50861111},
+							},
+							cromwell: {
+								centre: {lat: -44.98, lng: 169.21833333},
+							},
+							cromwellracecourse: {
+								centre: {lat: -45.04861111, lng: 169.17055556},
+							},
+							dannevirke: {
+								centre: {lat: -40.22833333, lng: 176.07861111},
+							},
+							dargaville: {
+								centre: {lat: -35.93972222, lng: 173.89361111},
+							},
+							dargavillehospital: {
+								centre: {lat: -35.92888889, lng: 173.87555556},
+							},
+							druryglider: {
+								centre: {lat: -37.09644444, lng: 174.9755},
+							},
+							dunedin: {
+								centre: {lat: -45.92805556, lng: 170.19833333},
+							},
+							dunedincity: {
+								centre: {lat: -45.88333333, lng: 170.50833333},
+							},
+							dunedinhospital: {
+								centre: {lat: -45.86861111, lng: 170.51055556},
+							},
+							evesvalley: {
+								centre: {lat: -41.33972222, lng: 173.0775},
+							},
+							feilding: {
+								centre: {lat: -40.25592778, lng: 175.60591944},
+							},
+							ferngully: {
+								centre: {lat: -46.895, lng: 168.11166667},
+							},
+							fernsidefields: {
+								centre: {lat: -43.3175, lng: 172.51166667},
+							},
+							flathills: {
+								centre: {lat: -39.89555556, lng: 175.65333333},
+							},
+							flatpoint: {
+								centre: {lat: -41.24305556, lng: 175.96027778},
+							},
+							forestfield: {
+								centre: {lat: -43.38583333, lng: 172.36055556},
+							},
+							fox: {
+								centre: {lat: -43.46305556, lng: 169.99972222},
+							},
+							foxpine: {
+								centre: {lat: -40.45666667, lng: 175.27027778},
+							},
+							franzjosef: {
+								centre: {lat: -43.36305556, lng: 170.13444444},
+							},
+							franzjosefheliport: {
+								centre: {lat: -43.37638889, lng: 170.19361111},
+							},
+							galatea: {
+								centre: {lat: -38.40861111, lng: 176.74194444},
+							},
+							gardencity: {
+								centre: {lat: -43.49333333, lng: 172.54833333},
+							},
+							gisborne: {
+								centre: {lat: -38.66333333, lng: 177.97833333},
+							},
+							gisbornehospital: {
+								centre: {lat: -38.63861111, lng: 178.00361111},
+							},
+							glaciercountry: {
+								centre: {lat: -43.38722222, lng: 170.18},
+							},
+							glenorchy: {
+								centre: {lat: -44.87166667, lng: 168.3975},
+							},
+							glentanner: {
+								centre: {lat: -43.90771667, lng: 170.12902778},
+							},
+							gore: {
+								centre: {lat: -46.15666667, lng: 168.89833333},
+							},
+							greatbarrier: {
+								centre: {lat: -36.24138889, lng: 175.47194444},
+							},
+							greatmercuryisland: {
+								centre: {lat: -36.60245, lng: 175.77386667},
+							},
+							greymouth: {
+								centre: {lat: -42.46166667, lng: 171.19},
+							},
+							haast: {
+								centre: {lat: -43.86666667, lng: 169.04027778},
+							},
+							hamilton: {
+								centre: {lat: -37.86638889, lng: 175.33527778},
+							},
+							hanmersprings: {
+								centre: {lat: -42.55083333, lng: 172.82666667},
+							},
+							hastings: {
+								centre: {lat: -39.64666667, lng: 176.76694444},
+							},
+							hastingshospital: {
+								centre: {lat: -39.63, lng: 176.82388889},
+							},
+							hawera: {
+								centre: {lat: -39.55333333, lng: 174.26694444},
+							},
+							helenabay: {
+								centre: {lat: -35.42305556, lng: 174.36315833},
+							},
+							hokitika: {
+								centre: {lat: -42.71361111, lng: 170.98527778},
+							},
+							invercargill: {
+								centre: {lat: -46.415, lng: 168.32},
+							},
+							kaikohe: {
+								centre: {lat: -35.45111111, lng: 173.81722222},
+							},
+							kaikoura: {
+								centre: {lat: -42.425, lng: 173.60527778},
+							},
+							kaiparaflats: {
+								centre: {lat: -36.40638889, lng: 174.58722222},
+							},
+							kaitaia: {
+								centre: {lat: -35.07, lng: 173.28527778},
+							},
+							kaitaiahospital: {
+								centre: {lat: -35.11841667, lng: 173.26091667},
+							},
+							karamea: {
+								centre: {lat: -41.23666667, lng: 172.105},
+							},
+							kauaroabay: {
+								centre: {lat: -36.82972222, lng: 175.06555556},
+							},
+							kenepuruhospital: {
+								centre: {lat: -41.145, lng: 174.83527778},
+							},
+							kerikeribayofislands: {
+								centre: {lat: -35.26277778, lng: 173.91194444},
+							},
+							koputaroa: {
+								centre: {lat: -40.55944444, lng: 175.33305556},
+							},
+							kowhai: {
+								centre: {lat: -39.84527778, lng: 176.42138889},
+							},
+							kupeheliport: {
+								centre: {lat: -39.85266667, lng: 174.11975},
+							},
+							lakehaupiri: {
+								centre: {lat: -42.60111111, lng: 171.69916667},
+							},
+							lakestationnelsonlakes: {
+								centre: {lat: -41.75916667, lng: 172.74583333},
+							},
+							loburnabbey: {
+								centre: {lat: -43.23361111, lng: 172.49416667},
+							},
+							maari: {
+								centre: {lat: -39.97277778, lng: 173.29777778},
+							},
+							makarora: {
+								centre: {lat: -44.23166667, lng: 169.23027778},
+							},
+							mandeville: {
+								centre: {lat: -45.99027778, lng: 168.81222222},
+							},
+							mangonui: {
+								centre: {lat: -34.99558333, lng: 173.4645},
+							},
+							marlboroughsounds: {
+								centre: {lat: -41.25555556, lng: 174.02166667},
+							},
+							martinborough: {
+								centre: {lat: -41.2125, lng: 175.48611111},
+							},
+							martinsbay: {
+								centre: {lat: -44.36361111, lng: 168.01916667},
+							},
+							masterton: {
+								centre: {lat: -40.97333333, lng: 175.63361111},
+							},
+							matamata: {
+								centre: {lat: -37.73444444, lng: 175.74194444},
+							},
+							mauia: {
+								centre: {lat: -39.555, lng: 173.44944444},
+							},
+							mauib: {
+								centre: {lat: -39.64527778, lng: 173.31583333},
+							},
+							mechanicsbay: {
+								centre: {lat: -36.84666667, lng: 174.78861111},
+							},
+							mercer: {
+								centre: {lat: -37.25916667, lng: 175.11472222},
+							},
+							milfordsound: {
+								centre: {lat: -44.67333333, lng: 167.92333333},
+							},
+							motukaikouraisland: {
+								centre: {lat: -36.17805556, lng: 175.32444444},
+							},
+							motueka: {
+								centre: {lat: -41.12333333, lng: 172.98861111},
+							},
+							mountcook: {
+								centre: {lat: -43.765, lng: 170.13333333},
+							},
+							murchison: {
+								centre: {lat: -41.79666667, lng: 172.315},
+							},
+							murchisonhospital: {
+								centre: {lat: -41.80638889, lng: 172.32861111},
+							},
+							napier: {
+								centre: {lat: -39.46583333, lng: 176.87},
+							},
+							nelson: {
+								centre: {lat: -41.29833333, lng: 173.22111111},
+							},
+							nelsonhospital: {
+								centre: {lat: -41.28833333, lng: 173.27222222},
+							},
+							newplymouth: {
+								centre: {lat: -39.00861111, lng: 174.17916667},
+							},
+							norfolk: {
+								centre: {lat: -39.20447222, lng: 174.22333333},
+							},
+							northshore: {
+								centre: {lat: -36.65666667, lng: 174.65527778},
+							},
+							northshorehospital: {
+								centre: {lat: -36.78166667, lng: 174.75861111},
+							},
+							oamaru: {
+								centre: {lat: -44.97, lng: 171.06805556},
+							},
+							oceanbeach: {
+								centre: {lat: -46.58972222, lng: 168.30555556},
+							},
+							ohakea: {
+								centre: {lat: -40.20666667, lng: 175.38694444},
+							},
+							okiwistation: {
+								centre: {lat: -36.14638889, lng: 175.41861111},
+							},
+							omahaflats: {
+								centre: {lat: -36.34611111, lng: 174.76027778},
+							},
+							omaka: {
+								centre: {lat: -41.54, lng: 173.92194444},
+							},
+							omarama: {
+								centre: {lat: -44.48666667, lng: 169.98611111},
+							},
+							opotiki: {
+								centre: {lat: -38.0225, lng: 177.30722222},
+							},
+							otaki: {
+								centre: {lat: -40.78361111, lng: 175.15111111},
+							},
+							paihia: {
+								centre: {lat: -35.28230556, lng: 174.09141667},
+							},
+							palmerstonnorth: {
+								centre: {lat: -40.32055556, lng: 175.61694444},
+							},
+							palmerstonnorthhospital: {
+								centre: {lat: -40.33777778, lng: 175.61944444},
+							},
+							papawai: {
+								centre: {lat: -41.09827778, lng: 175.4885},
+							},
+							parakai: {
+								centre: {lat: -36.65166667, lng: 174.43333333},
+							},
+							paraparaumu: {
+								centre: {lat: -40.90472222, lng: 174.98916667},
+							},
+							pauanuibeach: {
+								centre: {lat: -37.02166667, lng: 175.86361111},
+							},
+							picton: {
+								centre: {lat: -41.34833333, lng: 173.95527778},
+							},
+							pikespoint: {
+								centre: {lat: -36.93027778, lng: 174.81305556},
+							},
+							porangahau: {
+								centre: {lat: -40.28083333, lng: 176.6525},
+							},
+							puddinghill: {
+								centre: {lat: -43.58722222, lng: 171.52777778},
+							},
+							pukaki: {
+								centre: {lat: -44.235, lng: 170.11833333},
+							},
+							queenswharf: {
+								centre: {lat: -41.28583333, lng: 174.78},
+							},
+							queenstown: {
+								centre: {lat: -45.02123533, lng: 168.73924817},
+							},
+							raglan: {
+								centre: {lat: -37.80472222, lng: 174.86},
+							},
+							rangiora: {
+								centre: {lat: -43.29, lng: 172.54166667},
+							},
+							rangitaiki: {
+								centre: {lat: -38.88666667, lng: 176.36361111},
+							},
+							rangitataisland: {
+								centre: {lat: -44.085, lng: 171.41583333},
+							},
+							rawenehospital: {
+								centre: {lat: -35.40716667, lng: 173.50633333},
+							},
+							rosedaler: {
+								centre: {lat: -36.7425, lng: 174.7155},
+							},
+							rotorua: {
+								centre: {lat: -38.10916667, lng: 176.31722222},
+							},
+							rotoruahospital: {
+								centre: {lat: -38.13194444, lng: 176.24666667},
+							},
+							rotorualakes: {
+								centre: {lat: -38.11333333, lng: 176.27638889},
+							},
+							roxburgh: {
+								centre: {lat: -45.51166667, lng: 169.31666667},
+							},
+							ruawai: {
+								centre: {lat: -36.09583333, lng: 173.97527778},
+							},
+							ryanscreek: {
+								centre: {lat: -46.89972222, lng: 168.10194444},
+							},
+							southlandkewhospital: {
+								centre: {lat: -46.43722222, lng: 168.35944444},
+							},
+							springfield: {
+								centre: {lat: -43.38361111, lng: 171.91111111},
+							},
+							springhill: {
+								centre: {lat: -36.325, lng: 174.55555556},
+							},
+							stratford: {
+								centre: {lat: -39.31888889, lng: 174.31027778},
+							},
+							taharoaironsands: {
+								centre: {lat: -38.165, lng: 174.70527778},
+							},
+							taieri: {
+								centre: {lat: -45.86, lng: 170.35833333},
+							},
+							taihape: {
+								centre: {lat: -39.685, lng: 175.78861111},
+							},
+							takaka: {
+								centre: {lat: -40.81327222, lng: 172.77514167},
+							},
+							taranakibasehospital: {
+								centre: {lat: -39.07333333, lng: 174.05527778},
+							},
+							taumarunui: {
+								centre: {lat: -38.84333333, lng: 175.25527778},
+							},
+							taumarunuihospital: {
+								centre: {lat: -38.88972222, lng: 175.25138889},
+							},
+							taupo: {
+								centre: {lat: -38.73972222, lng: 176.08444444},
+							},
+							taupohospital: {
+								centre: {lat: -38.69861111, lng: 176.09888889},
+							},
+							taupowater: {
+								centre: {lat: -38.73166667, lng: 176.035},
+							},
+							tauranga: {
+								centre: {lat: -37.67194444, lng: 176.19611111},
+							},
+							taurangahospital: {
+								centre: {lat: -37.70694444, lng: 176.14805556},
+							},
+							teanaumanapouri: {
+								centre: {lat: -45.53305556, lng: 167.65},
+							},
+							tekowhai: {
+								centre: {lat: -37.745, lng: 175.15861111},
+							},
+							tekuiti: {
+								centre: {lat: -38.30333333, lng: 175.14694444},
+							},
+							tekuitihospital: {
+								centre: {lat: -38.33378889, lng: 175.15181389},
+							},
+							tepuiaspringshospital: {
+								centre: {lat: -38.05444444, lng: 178.30444444},
+							},
+							tekapo: {
+								centre: {lat: -44.005, lng: 170.44166667},
+							},
+							tekapomackenzie: {
+								centre: {lat: -44.01277778, lng: 170.40666667},
+							},
+							thames: {
+								centre: {lat: -37.15666667, lng: 175.55027778},
+							},
+							timaru: {
+								centre: {lat: -44.30277778, lng: 171.22527778},
+							},
+							tokoroa: {
+								centre: {lat: -38.23666667, lng: 175.89277778},
+							},
+							tokoroahospital: {
+								centre: {lat: -38.23194444, lng: 175.86083333},
+							},
+							tuiheliport: {
+								centre: {lat: -39.42947222, lng: 173.23658333},
+							},
+							turangi: {
+								centre: {lat: -38.96833333, lng: 175.81361111},
+							},
+							waiheke: {
+								centre: {lat: -36.80833333, lng: 175.08527778},
+							},
+							waihibeach: {
+								centre: {lat: -37.43, lng: 175.95194444},
+							},
+							waikatohospitalheliport: {
+								centre: {lat: -37.80628056, lng: 175.28089722},
+							},
+							waimate: {
+								centre: {lat: -44.79, lng: 171.09166667},
+							},
+							waiourumil: {
+								centre: {lat: -39.44638889, lng: 175.65833333},
+							},
+							waipukurau: {
+								centre: {lat: -39.99666667, lng: 176.53694444},
+							},
+							wairarapahospital: {
+								centre: {lat: -40.9475, lng: 175.67527778},
+							},
+							wairauhospital: {
+								centre: {lat: -41.53666667, lng: 173.94361111},
+							},
+							wairoa: {
+								centre: {lat: -39.00694444, lng: 177.40666667},
+							},
+							wairoahospital: {
+								centre: {lat: -39.0425, lng: 177.41416667},
+							},
+							wanaka: {
+								centre: {lat: -44.72222222, lng: 169.24555556},
+							},
+							wanganui: {
+								centre: {lat: -39.96222222, lng: 175.02527778},
+							},
+							wanganuihospital: {
+								centre: {lat: -39.94333333, lng: 175.03916667},
+							},
+							wellingtonhospital: {
+								centre: {lat: -41.30833333, lng: 174.77944444},
+							},
+							wellingtonintl: {
+								centre: {lat: -41.32722222, lng: 174.80527778},
+							},
+							wellsford: {
+								centre: {lat: -36.29705556, lng: 174.52291667},
+							},
+							westmelton: {
+								centre: {lat: -43.47666667, lng: 172.39666667},
+							},
+							westport: {
+								centre: {lat: -41.73805556, lng: 171.58083333},
+							},
+							whakatane: {
+								centre: {lat: -37.92055556, lng: 176.91416667},
+							},
+							whakatanehospital: {
+								centre: {lat: -37.96555556, lng: 176.97666667},
+							},
+							whangarei: {
+								centre: {lat: -35.76833333, lng: 174.365},
+							},
+							whangareihospital: {
+								centre: {lat: -35.73472222, lng: 174.30305556},
+							},
+							wharepapasouth: {
+								centre: {lat: -38.14388889, lng: 175.55027778},
+							},
+							whenuapai: {
+								centre: {lat: -36.78776944, lng: 174.63025833},
+							},
+							whitianga: {
+								centre: {lat: -36.83166667, lng: 175.67861111},
+							},
+							woodbourne: {
+								centre: {lat: -41.51833333, lng: 173.87027778},
+							},
+							wyndale: {
+								centre: {lat: -43.38333333, lng: 171.9},
+							}
+			    		};
+
+				    	var map;
+					    var map_marker;
+					    var lat = null;
+					    var lng = null;
+					    var lineCoordinatesArray = [];
+						var marker
+						
+				   
+					    function initialize() {
+					      	var myLatLng = {lat: -36.853396, lng: 174.765841}
+					        var mapCanvas = document.getElementById('map');
+					        var mapOptions = { 
+					          center: new google.maps.LatLng(-36.853396, 174.765841),
+					          zoom: 12,
+					          mapTypeId: google.maps.MapTypeId.SATELLITE
+					        }
+					        map = new google.maps.Map(mapCanvas, mapOptions)
+					        marker = new google.maps.Marker({
+							    position: myLatLng,
+							    map: map,
+							    title: 'You are here'
+							})
+							
+					        console.log("test")
+						  	// Construct the circle for each value in citymap.
+							// var aerodomelist1 = {
+			    			// alexandra: {
+							// 	centre: {lat: -36.862532, lng: 174.812334}
+							// }}
+
+							for (var aerodome in aerodomelist) {
+						    // Add the circle for this city to the map.
+						    	var aerodomeCircle = new google.maps.Circle({
+							      	strokeColor: '#FF0000',
+							     	strokeOpacity: 0.8,
+								  	strokeWeight: 2,
+							      	fillColor: '#FF0000',
+							      	fillOpacity: 0.1,
+							      	map: map,
+							      	center: aerodomelist[aerodome].centre,
+							      	radius: 4000
+							  	});				  
+					      	}
+					      	var droneimage = {
+					      		src: 'css/images/drone_map.png',
+					      		size: new google.maps.Size(20, 32)
+					      	}
+					      
+					      	//change this marker to a drone and reshow. Shrunk
+					      	//located in cornwall park {-36.900571, 174.780168}
+					      	 var marker = new google.maps.Marker({
+					      	 	position: {lat: -36.900571, lng: 174.780168},
+					      	 	map: map,
+					      	 	icon: 'css/images/drone.png'
+					      	 })
+							//change this marker to a M (meeting) and reshow. Sort out size
+							//located in cornwall park (-36.900877, 174.788715)
+							 var marker = new google.maps.Marker({
+					      	 	position: {lat: -36.900877, lng: 174.788715},
+					      	 	map: map,
+					      	 	icon: 'css/images/rsz_meeting_blue.png'
+					      	 })
+					  	};
+					  
+					  function searchMap(){
+						var geocoder = new google.maps.Geocoder();
+						var address = document.getElementById('searchField').value;
+						var latitude;
+						var longitude;
+						var myLatLng;
+						geocoder.geocode({ 'address': address }, function (results, status) {
+
+							if (status == google.maps.GeocoderStatus.OK) {
+								if(results.length > 0) {
+				
+								latitude = results[0].geometry.location.lat();
+								longitude = results[0].geometry.location.lng();
+								
+								myLatLng = {lat: latitude, lng: longitude};
+								map.setCenter(myLatLng);
+								//marker.setMap(null);
+								marker = new google.maps.Marker({
+										position: myLatLng,
+										map: map,
+										title: address
+									});
+									}
+							}
+						});
+					  }
+					  
+					  function track(){
+						var myLatLng = {lat: -36.853396, lng: 174.765841}
+						map.setCenter(myLatLng);
+						marker.setMap(null);
+						marker = new google.maps.Marker({
+							    position: myLatLng,
+							    map: map,
+							    title: 'Your drone is here'
+							});
+					  }
+
+				      //google.maps.event.addDomListener(window, 'load', initialize);
+					
+						$("#search").bind("click", searchMap);
+						$("#track").bind("click", track);
+
+				    </script>
+				    <script async defer
+				    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAz1ZqvxoyyeiXwVBkayqRNO1ZIcR171Ik&libraries=places&callback=initialize">
+				    </script>	
+					<div id="map" href="#" class="image fit" style="width: 100%"></div>
+					<div style="border-style: solid; width: 42%; opacity: 0.6; height:60px; padding-top:10px;">
+						<img src="css/gifs/altitude.gif" alt="Altitude GIF" style="width:60px;height:60px; opacity: 0.7"/>
+						<img src="css/gifs/speed.gif" alt="Speed GIF" style="width:60px;height:60px; 	; opacity: 0.7"/>
+					</div>
+					
+
+					<!-- <section id="one" class="wrapper style1">
+						<div class="container 75%">
+							<div class="row 200%">
+								<div class="6u 12u$(medium)">
+								</div>
+							</div>
+						</div>
+					</section> -->
+
+				</div>
+					<img src="css\images\icon_noflyzone.png" alt="No fly zone" style="width:30px;height:30px;position:absolute; TOP:600px; LEFT:290px">
+					<p style="position:absolute; TOP:575px; LEFT:280px;font-size:10px" >No Fly Zone.</p>
+					<img src="css\images\icon_lable.png" alt="Restricted Zone" style="width:30px;height:30px;position:absolute; TOP:600px; LEFT:220px">
+					<p style="position:absolute; TOP:575px; LEFT:200px;font-size:10px" >Restricted Zone.</p>
+			</section>
+	</body>
+</html>
