@@ -1063,7 +1063,6 @@
 	#banner {
 		padding: 16em 0 23em 0;
 		/*background-attachment: fixed;*/
-		/*background:  url("images/overlay.png") no-repeat;*/
 		background-position: center;
 		background-size: cover;
 		line-height: 1.75;
@@ -1079,7 +1078,6 @@
 	#banner2 {
 		padding: 16em 0 13em 0;
 		/*background-attachment: fixed;*/
-		/*background-image: url("images/overlay.png")*/
 		background-position: center;
 		background-size: cover;
 		line-height: 1.75;
@@ -1091,7 +1089,6 @@
 	#banner3 {
 		padding: 16em 0 13em 0;
 		/*background-attachment: fixed;*/
-		/*background-image: url("images/overlay.png");*/
 		background-repeat: no-repeat;
 		background-position: center top;
 		background-size: cover;
@@ -1128,10 +1125,8 @@
 
 	@media screen and (max-width: 500px) {
 		#banner3 {
-			background-image: url("images/overlay.png");
 		}
 		#banner {
-			background-image: url("images/overlay.png");
 		}
 		#banner h2 {
 			font-size: 4.0em !important;
@@ -1194,7 +1189,6 @@
 
 		.wrapper.style3 {
 			background-attachment: fixed;
-			background-image: url("images/overlay.png")
 			background-position: center center;
 			background-size: cover;
 		}
